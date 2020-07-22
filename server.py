@@ -23,6 +23,8 @@ def start_here():
       <html>
         <h1>Hi! This is the home page.</h1>
         <a href="/hello">Be greeted!</a>
+        <br>
+        <a href="/diss">Be dissed!</a>
       </html>
       """
 
@@ -45,7 +47,7 @@ def say_hello():
           </div>
           <div>
             Select the one that best describes you:
-            <select name="compliment">
+            <select name="description">
               <option value="awesome">Awesome</option>
               <option value="terrific">Terrific</option>
               <option value="fantastic">Fantastic</option>
@@ -55,6 +57,35 @@ def say_hello():
       </body>
     </html>
     """
+  
+@app.route('/diss')
+def dish_out_diss():
+  """Prompt for user's name and and diss"""
+  
+  return """
+  <!doctype html>
+  <html>
+    <head>
+      <title>Hi There!</title>
+    </head>
+    <body>
+      <h1>Hi There!</h1>
+      <form action="/greet">
+        <div>
+          What's your name? <input type="text" name="person">
+        </div>
+        <div>
+          Select how you want to be ROASTED!!!
+          <select name="description">
+            <option value="smelly">smelly</option>
+            <option value="jerkface">Jerkface</option>
+            <option value="mean">mean</option>
+          </div>
+          <input type="submit" value="Submit">
+      </form>
+    </body>
+  </html>
+  """
 
 
 @app.route('/greet')
@@ -64,7 +95,8 @@ def greet_person():
     player = request.args.get("person")
 
     #compliment = choice(AWESOMENESS)
-    compliment = request.args.get("compliment", "ballin'")
+    description = request.args.get("description")
+
 
     return """
     <!doctype html>
@@ -76,8 +108,8 @@ def greet_person():
         Hi, {}! I think you're {}!
       </body>
     </html>
-    """.format(player, compliment)
-
+    """.format(player, description)
+    
 
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads"
